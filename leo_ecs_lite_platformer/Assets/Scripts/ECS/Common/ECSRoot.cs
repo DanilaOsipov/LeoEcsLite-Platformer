@@ -1,4 +1,5 @@
 ﻿using Leopotam.EcsLite;
+using Services;
 using UnityEngine;
 
 namespace ECS.Common
@@ -7,8 +8,8 @@ namespace ECS.Common
     {
         private EcsSystems _updateSystems;
         private EcsSystems _fixedUpdateSystems;
-        
-        private void Awake()
+
+        protected virtual void Awake()
         {
             var ecsWorld = new EcsWorld();
             RegisterWorld(GetWorldName(), ecsWorld);
@@ -32,8 +33,8 @@ namespace ECS.Common
             _fixedUpdateSystems?.Destroy();
             
             var worldName = GetWorldName();
-            UnregisterWorld(worldName);
             var ecsWorld = GetWorld(worldName);
+            UnregisterWorld(worldName);
             ecsWorld.Destroy();
         }
 
@@ -42,6 +43,12 @@ namespace ECS.Common
         protected abstract EcsSystems CreateUpdateSystems(EcsWorld ecsWorld);
 
         protected abstract EcsSystems CreateFixedUpdateSystems(EcsWorld ecsWorld);
+
+        protected void RegisterService<T>(IService service) where T : IService => Services.Services.RegisterService<T>(service);
+
+        protected void UnregisterService<T>() where T : IService => Services.Services.UnregisterService<T>();
+
+        protected T GetService<T>() where T : IService => Services.Services.GetService<T>();
 
         protected abstract string GetWorldName();
 
