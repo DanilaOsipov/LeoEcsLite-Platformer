@@ -4,6 +4,31 @@ using Services;
 
 namespace ECS.Main
 {
+    public interface IInputService : IService
+    {
+        
+    }
+
+    public class UIRoot : ECSRoot
+    {
+        protected override EcsSystems CreateInitSystems(EcsWorld ecsWorld)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override EcsSystems CreateUpdateSystems(EcsWorld ecsWorld)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override EcsSystems CreateFixedUpdateSystems(EcsWorld ecsWorld)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override string GetWorldName() => ECSConstants.UI_WORLD_NAME;
+    }
+    
     public class MainRoot : ECSRoot
     {
         protected override void Awake()
@@ -12,7 +37,7 @@ namespace ECS.Main
             
             base.Awake();
             
-            LoadInputWorld();
+            LoadUIWorld();
         }
 
         protected override EcsSystems CreateInitSystems(EcsWorld ecsWorld) => null;
@@ -28,18 +53,17 @@ namespace ECS.Main
             RegisterService<ISceneService>(new SceneManagerService());
         }
 
-        private void LoadInputWorld()
+        private void LoadUIWorld()
         {
             var sceneService = GetService<ISceneService>();
-            sceneService.OnSceneLoaded += OnInputWorldLoadedHandler;
-            sceneService.LoadScene(ECSConstants.INPUT_WORLD_SCENE);
+            sceneService.OnSceneLoaded += OnUIWorldLoadedHandler;
+            sceneService.LoadScene(ECSConstants.UI_WORLD_SCENE);
         }
 
-        private void OnInputWorldLoadedHandler(string sceneName)
+        private void OnUIWorldLoadedHandler(string sceneName)
         {
             var sceneService = GetService<ISceneService>();
-            sceneService.OnSceneLoaded -= OnInputWorldLoadedHandler;
-            
+            sceneService.OnSceneLoaded -= OnUIWorldLoadedHandler;
         }
     }
 }
