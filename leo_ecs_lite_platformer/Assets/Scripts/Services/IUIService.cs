@@ -10,7 +10,7 @@ namespace Services
         T HidePanel<T>() where T : IUIPanelView;
 
         TPanel ShowPanel<TPanel, TData>(TData data)
-            where TPanel : IUIPanelInitializableView<TData>
+            where TPanel : Object, IUIPanelInitializableView<TData>
             where TData : IUIPanelData;
     }
 }

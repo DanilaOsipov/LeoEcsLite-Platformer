@@ -1,6 +1,8 @@
 ﻿using Common;
+using Contexts.UI.Data;
 using Contexts.UI.Factory;
 using Contexts.UI.Mediator;
+using Contexts.UI.View;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,24 +18,48 @@ namespace Services.Implemented
 
         private readonly List<IUIPanelMediator> _instantiatedMediators = new();
 
-        T IUIService.HidePanel<T>()
+        public UIMediationService(
+            IAssetsService assetsService,
+            IViewService viewService,
+            IUIPanelMediatorFactory mediatorFactory,
+            Transform uiRoot)
         {
-            throw new System.NotImplementedException();
+            _assetsService = assetsService;
+            _viewService = viewService;
+            _mediatorFactory = mediatorFactory;
+            _uiRoot = uiRoot;
         }
 
-        T IUIService.ShowPanel<T>()
+        public T HidePanel<T>() where T : IUIPanelView
+        {
+            var panelMediator = _instantiatedMediators.Find(e => e.PanelView.GetType() == typeof(T));
+            _instantiatedMediators.Remove(panelMediator);
+            panelMediator.HidePanel();
+            return (T)panelMediator.PanelView;
+        }
+
+        public T ShowPanel<T>() where T : Object, IUIPanelView
         {
             var panelPrefab = _assetsService.LoadAsset<T>(ApplicationConstants.UI_PANELS_PATH);
-            var panelView = _viewService.Instantiate(panelPrefab, _uiRoot) as T;
+            var panelView = _viewService.Instantiate(panelPrefab, _uiRoot);
             var panelMediator = _mediatorFactory.CreateMediator(panelView);
             _instantiatedMediators.Add(panelMediator);
             panelMediator.ShowPanel();
             return panelView;
         }
 
-        TPanel IUIService.ShowPanel<TPanel, TData>(TData data)
+        public TPanel ShowPanel<TPanel, TData>(TData data)
+            where TPanel : Object, IUIPanelInitializableView<TData>
+            where TData : IUIPanelData
         {
-            throw new System.NotImplementedException();
+            var panelPrefab = _assetsService.LoadAsset<TPanel>(ApplicationConstants.UI_PANELS_PATH);
+            var panelView = _viewService.Instantiate(panelPrefab, _uiRoot);
+            var panelMediator = _mediatorFactory.CreateMediator(panelView);
+            _instantiatedMediators.Add(panelMediator);
+            var initializableMediator = panelMediator as IUIPanelInitializableMediator<TData>;
+            initializableMediator.Initialize(data);
+            initializableMediator.ShowPanel();
+            return panelView;
         }
     }
 }

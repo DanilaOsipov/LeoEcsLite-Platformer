@@ -5,6 +5,6 @@ namespace Services
 {
     public interface IViewService : IService
     {
-        Object Instantiate(Object original, Transform parent);
+        T Instantiate<T>(T original, Transform parent) where T : Object;
     }
 }

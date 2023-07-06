@@ -1,5 +1,6 @@
 ﻿using Common;
 using Contexts.Common;
+using Contexts.Main.Command;
 using UnityEngine;
 
 namespace Contexts.Main
@@ -11,8 +12,11 @@ namespace Contexts.Main
 
         private void Awake()
         {
-            ICommand registerServicesCommand = new RegisterServicesCommand(serviceLocator: this);
-            registerServicesCommand.Execute();
+            var startupSequence = new CommandSequence()
+                .Add(new MainRegisterServicesCommand(serviceLocator: this))
+                .Add(new LoadUIContextCommand(serviceLocator: this));
+
+            startupSequence.Execute();
         }
     }
 }
