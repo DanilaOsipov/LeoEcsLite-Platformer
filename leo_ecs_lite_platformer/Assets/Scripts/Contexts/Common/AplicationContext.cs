@@ -1,23 +1,16 @@
 using Common;
+using LeopotamGroup.Globals;
+using Services;
 using UnityEngine;
 
 namespace Contexts.Common
 {
     public abstract class AplicationContext : MonoBehaviour, IServiceLocator
     {
-        T IServiceLocator.GetService<T>()
-        {
-            throw new System.NotImplementedException();
-        }
+        public T GetService<T>() where T : class, IService => Service<T>.Get();
 
-        void IServiceLocator.RegisterService<T>(T service)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void RegisterService<T>(T service) where T : class, IService => Service<T>.Set(service);
 
-        void IServiceLocator.UnregisterService<T>()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void UnregisterService<T>() where T : class, IService => Service<T>.Set(null);
     }
 }

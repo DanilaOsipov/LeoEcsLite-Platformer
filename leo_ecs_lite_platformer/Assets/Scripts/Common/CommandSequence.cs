@@ -16,8 +16,10 @@ namespace Common
             if (_sequenceCommands.Count == 0)
             {
                 OnSucceed();
+                return;
             }
-            else if (_sequenceCommands.Count == 1)
+
+            if (_sequenceCommands.Count == 1)
             {
                 _sequenceCommands.First().OnSucceed += delegate { OnSucceed(); };
                 _sequenceCommands.First().OnFailed += delegate { OnFailed(); };
@@ -33,6 +35,8 @@ namespace Common
                 _sequenceCommands.Last().OnSucceed += delegate { OnSucceed(); };
                 _sequenceCommands.Last().OnFailed += delegate { OnFailed(); };
             }
+
+            _sequenceCommands.First().Execute();
         }
 
         public CommandSequence Add(ICommand command)
