@@ -21,8 +21,8 @@ namespace Contexts.Main.Command
         {
             _serviceLocator.RegisterService<ISceneService>(new SceneManagerService());
             _serviceLocator.RegisterService<IInputService>(new UnityInputService());
-
-            // TODO
+            _serviceLocator.RegisterService<IAssetsService>(new ResourcesService());
+            _serviceLocator.RegisterService<IViewService>(new UnityViewService());
 
             OnSucceed();
         }

@@ -7,7 +7,7 @@ namespace Services
     public interface IUIService : IService
     {
         T ShowPanel<T>() where T : Object, IUIPanelView;
-        T HidePanel<T>() where T : IUIPanelView;
+        T HidePanel<T>() where T : Object, IUIPanelView;
 
         TPanel ShowPanel<TPanel, TData>(TData data)
             where TPanel : Object, IUIPanelInitializableView<TData>
