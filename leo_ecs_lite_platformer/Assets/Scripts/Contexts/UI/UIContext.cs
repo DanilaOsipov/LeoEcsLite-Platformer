@@ -1,6 +1,7 @@
 ﻿using Common;
 using Contexts.Common;
 using Contexts.UI.Command;
+using Contexts.UI.View.Implemented;
 using UnityEngine;
 
 namespace Contexts.UI
@@ -12,7 +13,8 @@ namespace Contexts.UI
         private void Awake()
         {
             var startupSequence = new CommandSequence()
-               .Add(new UIRegisterServicesCommand(serviceLocator: this, _uiRoot));
+               .Add(new UIRegisterServicesCommand(serviceLocator: this, _uiRoot))
+               .Add(new ShowUIPanelCommand<UIMainPanelView>(serviceLocator: this));
 
             startupSequence.Execute();
         }

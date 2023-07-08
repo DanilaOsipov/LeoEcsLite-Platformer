@@ -1,18 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Contexts.UI.View.Implemented
 {
     public abstract class UIPanelView : MonoBehaviour, IUIPanelView
     {
-        void IUIPanelView.Show()
-        {
-            throw new NotImplementedException();
-        }
+        public void Show() => gameObject.SetActive(true);
 
-        void IUIPanelView.Hide()
-        {
-            throw new NotImplementedException();
-        }
+        public void Hide() => gameObject.SetActive(false);
     }
 }

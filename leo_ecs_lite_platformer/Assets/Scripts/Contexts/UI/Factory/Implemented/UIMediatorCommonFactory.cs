@@ -10,16 +10,14 @@ namespace Contexts.UI.Factory.Implemented
     {
         private readonly List<IUIPanelMediatorFactory> _factories = new();
 
-        Type IUIPanelMediatorFactory.ViewType => typeof(IUIPanelView);
+        public Type ViewType => typeof(IUIPanelView);
 
         public UIMediatorCommonFactory(IServiceLocator serviceLocator)
         {
-            //_serviceLocator = serviceLocator;
-
-            // TODO add factories
+            _factories.Add(new UIMainPanelMediatorFactory(serviceLocator));
         }
 
-        IUIPanelMediator IUIPanelMediatorFactory.CreateMediator(IUIPanelView panelView)
+        public IUIPanelMediator CreateMediator(IUIPanelView panelView)
         {
             return GetFactory(panelView).CreateMediator(panelView);
         }

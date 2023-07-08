@@ -4,6 +4,6 @@
     {
         public const string UI_CONTEXT_SCENE_NAME = "UI";
 
-        public const string UI_PANELS_PATH = ""; // TODO
+        public const string UI_PANELS_PATH = "Prefabs/UI";
     }
 }
