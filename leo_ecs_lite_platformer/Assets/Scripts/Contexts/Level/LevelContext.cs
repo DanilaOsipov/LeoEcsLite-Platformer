@@ -7,6 +7,7 @@ using AB_Utility.FromSceneToEntityConverter;
 using Contexts.Level.ECS.System;
 using Services;
 using Contexts.Level.ECS.Event;
+using Contexts.Level.ECS.Component;
 
 namespace Contexts.Level
 {
