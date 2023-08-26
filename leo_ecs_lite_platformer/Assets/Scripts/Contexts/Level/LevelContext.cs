@@ -3,6 +3,7 @@ using Contexts.Common;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
+using Leopotam.EcsLite.UnityEditor;
 using AB_Utility.FromSceneToEntityConverter;
 using Contexts.Level.ECS.System;
 using Services;
@@ -35,6 +36,10 @@ namespace Contexts.Level
                 .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<AxisInputEvent>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .Add(new AxisInputCheckSystem())
+#if UNITY_EDITOR
+                .Add(new EcsWorldDebugSystem())
+                .Add(new EcsWorldDebugSystem(ApplicationConstants.ECS_EVENTS_WORLD_NAME))
+#endif
                 .Inject(inputService)
                 .Init();
 
