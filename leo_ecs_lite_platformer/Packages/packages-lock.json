@@ -42,6 +42,13 @@
       "dependencies": {},
       "hash": "bd471093eb39824b4ec75e82c680b1d33999ec4c"
     },
+    "com.supremestranger.leoecs-lite-physics": {
+      "version": "https://github.com/supremestranger/leoecs-lite-physics.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4e7a935370c9455ec5d9eb9bed2e8580c4735615"
+    },
     "com.unity.collab-proxy": {
       "version": "1.15.16",
       "depth": 0,

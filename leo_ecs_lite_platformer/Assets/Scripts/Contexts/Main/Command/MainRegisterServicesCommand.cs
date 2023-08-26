@@ -23,6 +23,7 @@ namespace Contexts.Main.Command
             _serviceLocator.RegisterService<IInputService>(new UnityInputService());
             _serviceLocator.RegisterService<IAssetsService>(new ResourcesService());
             _serviceLocator.RegisterService<IViewService>(new UnityViewService());
+            _serviceLocator.RegisterService<ITimeService>(new UnityTimeService());
 
             OnSucceed();
         }

@@ -4,6 +4,7 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
 using Leopotam.EcsLite.UnityEditor;
+using LeoEcsPhysics;
 using AB_Utility.FromSceneToEntityConverter;
 using Contexts.Level.ECS.System;
 using Services;
@@ -22,7 +23,10 @@ namespace Contexts.Level
             var defaultWorld = new EcsWorld();
             var eventsWorld = new EcsWorld();
 
+            EcsPhysicsEvents.ecsWorld = eventsWorld;
+
             var inputService = GetService<IInputService>();
+            var timeService = GetService<ITimeService>();
 
             var initSystems = new EcsSystems(defaultWorld);
             initSystems
@@ -50,7 +54,7 @@ namespace Contexts.Level
                 .Add(new ViewPositionGetSystem())
                 .Add(new InputMovementSystem())
                 .Add(new ViewPositionSetSystem())
-                .Inject()
+                .Inject(timeService)
                 .Init();
         }
 

@@ -3,6 +3,7 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Common;
 using Contexts.Level.ECS.Event;
+using Services;
 
 namespace Contexts.Level.ECS.System
 {
@@ -16,6 +17,8 @@ namespace Contexts.Level.ECS.System
         private readonly EcsFilterInject<Inc<AxisInputEvent>> _axisFilter = ApplicationConstants.ECS_EVENTS_WORLD_NAME;
         private readonly EcsPoolInject<AxisInputEvent> _axisInputs = ApplicationConstants.ECS_EVENTS_WORLD_NAME;
 
+        private readonly EcsCustomInject<ITimeService> _timeService;
+
         public void Run(IEcsSystems systems)
         {
             foreach (var axisEntity in _axisFilter.Value)
@@ -26,7 +29,7 @@ namespace Contexts.Level.ECS.System
                 {
                     ref var position = ref _positions.Value.Get(movementEntity);
                     var speed = _speeds.Value.Get(movementEntity);
-                    position.Value.x += axis.x * speed.Value;
+                    position.Value.x += axis.x * speed.Value * _timeService.Value.FixedDeltaTime;
 
                     if (!_positionChangedMarkers.Value.Has(movementEntity))
                     {
