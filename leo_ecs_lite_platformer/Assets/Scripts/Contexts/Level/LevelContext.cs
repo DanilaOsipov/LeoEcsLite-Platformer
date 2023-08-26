@@ -42,6 +42,7 @@ namespace Contexts.Level
             _fixedUpdateSystems
                 .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<PositionChangedMarker>()
+                .Add(new ViewPositionGetSystem())
                 .Add(new InputMovementSystem())
                 .Add(new ViewPositionSetSystem())
                 .Inject()

@@ -7,6 +7,8 @@ namespace Contexts.Level.ECS.Listener.Implemented
     {
         private Rigidbody _rigidbody;
 
+        public Vector3 CurrentPosition => _rigidbody.position;
+
         private void Awake() => _rigidbody = GetComponent<Rigidbody>();
 
         public void UpdatePosition(Vector3 value) => _rigidbody.MovePosition(value);
