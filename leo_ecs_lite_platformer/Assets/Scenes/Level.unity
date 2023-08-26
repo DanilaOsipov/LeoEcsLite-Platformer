@@ -533,7 +533,7 @@ MonoBehaviour:
   - {fileID: 1256176086}
   - {fileID: 1256176089}
   - {fileID: 1256176090}
-  _destroyAfterConversion: 0
+  _destroyAfterConversion: 1
 --- !u!114 &1256176086
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -51,6 +51,8 @@ namespace Contexts.Level
             _fixedUpdateSystems
                 .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<PositionChangedMarker>()
+                .DelHerePhysics(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
+                .Add(new CollisionEnterCheckSystem())
                 .Add(new ViewPositionGetSystem())
                 .Add(new InputMovementSystem())
                 .Add(new ViewPositionSetSystem())

@@ -1,10 +1,9 @@
-﻿using AB_Utility.FromSceneToEntityConverter;
-using Contexts.Level.ECS.Listener;
+﻿using Contexts.Level.ECS.Listener;
 using Leopotam.EcsLite;
 
 namespace Contexts.Level.ECS.Component.Converter
 {
-    public class PositionListenerConverter : ComponentConverter<PositionListener>
+    public class PositionListenerConverter : ComponentConverterWithEntity<PositionListener>
     {
         public override void Convert(EcsPackedEntityWithWorld entityWithWorld)
         {
