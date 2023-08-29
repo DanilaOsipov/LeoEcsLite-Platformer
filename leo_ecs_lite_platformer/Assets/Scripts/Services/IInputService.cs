@@ -5,5 +5,6 @@ namespace Services
     public interface IInputService : IService
     {
         Vector2 Axis { get; }
+        bool JumpButtonDown { get; }
     }
 }

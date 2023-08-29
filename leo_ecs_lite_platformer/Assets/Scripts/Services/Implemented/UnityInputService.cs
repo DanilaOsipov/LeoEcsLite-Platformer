@@ -7,6 +7,8 @@ namespace Services.Implemented
     {
         public Vector2 Axis => GetInputAxis();
 
+        public bool JumpButtonDown => Input.GetButtonDown(ApplicationConstants.JUMP_BUTTON_NAME);
+
         private Vector2 GetInputAxis()
         {
             return new(

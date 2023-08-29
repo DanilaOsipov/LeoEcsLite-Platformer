@@ -9,6 +9,9 @@ namespace Contexts.Level.ECS.Component
     [Serializable] public struct Speed { public float Value; }
     [Serializable] public struct InputMovement { }
     [Serializable] public struct PositionListener { public IPositionListener Value; }
+    [Serializable] public struct ForceListener { public IForceListener Value; }
+    [Serializable] public struct InputJump { }
+    [Serializable] public struct JumpForce { public float Value; }
     public struct Owner { public EcsPackedEntityWithWorld Value; }
     public struct PositionChangedMarker { }
 }

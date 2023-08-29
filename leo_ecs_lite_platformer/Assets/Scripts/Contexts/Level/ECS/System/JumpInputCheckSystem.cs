@@ -6,22 +6,19 @@ using Contexts.Level.ECS.Event;
 
 namespace Contexts.Level.ECS.System
 {
-    public class AxisInputCheckSystem : IEcsRunSystem
+    public class JumpInputCheckSystem : IEcsRunSystem
     {
         private readonly EcsWorldInject _eventsWorld = ApplicationConstants.ECS_EVENTS_WORLD_NAME;
-        private readonly EcsPoolInject<AxisInputEvent> _axisInputs = ApplicationConstants.ECS_EVENTS_WORLD_NAME;
+        private readonly EcsPoolInject<JumpInputEvent> _jumpInputs = ApplicationConstants.ECS_EVENTS_WORLD_NAME;
 
         private readonly EcsCustomInject<IInputService> _inputService;
 
         public void Run(IEcsSystems systems)
         {
-            var axis = _inputService.Value.Axis;
-
-            if (axis.x != 0 || axis.y != 0)
+            if (_inputService.Value.JumpButtonDown)
             {
                 var entity = _eventsWorld.Value.NewEntity();
-                ref var evt = ref _axisInputs.Value.Add(entity);
-                evt.Axis = axis;
+                _jumpInputs.Value.Add(entity);
             }
         }
     }

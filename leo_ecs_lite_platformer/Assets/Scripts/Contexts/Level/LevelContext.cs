@@ -40,6 +40,7 @@ namespace Contexts.Level
                 .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<AxisInputEvent>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .Add(new AxisInputCheckSystem())
+                .Add(new JumpInputCheckSystem())
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
                 .Add(new EcsWorldDebugSystem(ApplicationConstants.ECS_EVENTS_WORLD_NAME))
@@ -55,7 +56,9 @@ namespace Contexts.Level
                 .Add(new CollisionEnterCheckSystem())
                 .Add(new ViewPositionGetSystem())
                 .Add(new InputMovementSystem())
+                .Add(new InputJumpSystem())
                 .Add(new ViewPositionSetSystem())
+                .DelHere<JumpInputEvent>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .Inject(timeService)
                 .Init();
         }
