@@ -12,5 +12,7 @@
         public const string HORIZONTAL_INPUT_AXIS_NAME = "Horizontal";
         public const string VERTICAL_INPUT_AXIS_NAME = "Vertical";
         public const string JUMP_BUTTON_NAME = "Jump";
+
+        public const string GROUND_TAG = "Ground";
     }
 }

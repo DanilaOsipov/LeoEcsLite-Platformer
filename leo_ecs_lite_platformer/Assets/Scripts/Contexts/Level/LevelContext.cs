@@ -51,14 +51,18 @@ namespace Contexts.Level
             _fixedUpdateSystems = new EcsSystems(defaultWorld);
             _fixedUpdateSystems
                 .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
-                .DelHere<PositionChangedMarker>()
-                .DelHerePhysics(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .Add(new CollisionEnterCheckSystem())
+                .Add(new GroundEnterCheckSystem())
+                .Add(new CollisionExitCheckSystem())
+                .Add(new GroundExitCheckSystem())
                 .Add(new ViewPositionGetSystem())
                 .Add(new InputMovementSystem())
                 .Add(new InputJumpSystem())
                 .Add(new ViewPositionSetSystem())
+                .DelHerePhysics(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<JumpInputEvent>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
+                .DelHere<Owner>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
+                .DelHere<PositionChangedMarker>()
                 .Inject(timeService)
                 .Init();
         }

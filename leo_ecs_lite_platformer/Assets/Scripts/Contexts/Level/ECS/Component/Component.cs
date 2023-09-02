@@ -14,4 +14,5 @@ namespace Contexts.Level.ECS.Component
     [Serializable] public struct JumpForce { public float Value; }
     public struct Owner { public EcsPackedEntityWithWorld Value; }
     public struct PositionChangedMarker { }
+    public struct Grounded { }
 }
