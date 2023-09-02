@@ -9,7 +9,7 @@ namespace Contexts.Level.ECS.System
 {
     public class InputJumpSystem : IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<InputJump, ForceListener, JumpForce>> _jumpFilter = default;
+        private readonly EcsFilterInject<Inc<InputJump, ForceListener, JumpForce, Grounded>> _jumpFilter = default;
         private readonly EcsPoolInject<JumpForce> _forces = default;
         private readonly EcsPoolInject<ForceListener> _listeners = default;
 
