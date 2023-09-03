@@ -53,6 +53,8 @@ namespace Contexts.Level
                 .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .Add(new CollisionEnterCheckSystem())
                 .Add(new GroundEnterCheckSystem())
+                .Add(new CollisionStayCheckSystem())
+                .Add(new GroundStayCheckSystem())
                 .Add(new CollisionExitCheckSystem())
                 .Add(new GroundExitCheckSystem())
                 .Add(new ViewPositionGetSystem())
