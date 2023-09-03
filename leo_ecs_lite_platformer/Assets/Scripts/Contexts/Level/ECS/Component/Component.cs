@@ -12,6 +12,8 @@ namespace Contexts.Level.ECS.Component
     [Serializable] public struct ForceListener { public IForceListener Value; }
     [Serializable] public struct InputJump { }
     [Serializable] public struct JumpForce { public float Value; }
+    [Serializable] public struct LevelExit { }
+    [Serializable] public struct Player { }
     public struct Owner { public EcsPackedEntityWithWorld Value; }
     public struct PositionChangedMarker { }
     public struct Grounded { }

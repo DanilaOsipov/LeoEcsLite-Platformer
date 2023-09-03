@@ -57,6 +57,8 @@ namespace Contexts.Level
                 .Add(new GroundStayCheckSystem())
                 .Add(new CollisionExitCheckSystem())
                 .Add(new GroundExitCheckSystem())
+                .Add(new TriggerEnterCheckSystem())
+                .Add(new LevelExitCheckSystem())
                 .Add(new ViewPositionGetSystem())
                 .Add(new InputMovementSystem())
                 .Add(new InputJumpSystem())
