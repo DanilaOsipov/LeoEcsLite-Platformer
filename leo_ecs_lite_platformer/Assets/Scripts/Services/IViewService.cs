@@ -6,5 +6,6 @@ namespace Services
     public interface IViewService : IService
     {
         T Instantiate<T>(T original, Transform parent) where T : Object;
+        void Destroy<T>(T view) where T : Object;
     }
 }

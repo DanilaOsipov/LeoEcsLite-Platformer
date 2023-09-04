@@ -30,12 +30,12 @@ namespace Services.Implemented
             _uiRoot = uiRoot;
         }
 
-        public T HidePanel<T>() where T : Object, IUIPanelView
+        public void HidePanel<T>() where T : Object, IUIPanelView
         {
             var panelMediator = _instantiatedMediators.Find(e => e.PanelView.GetType() == typeof(T));
             _instantiatedMediators.Remove(panelMediator);
             panelMediator.HidePanel();
-            return (T)panelMediator.PanelView;
+            _viewService.Destroy(panelMediator.PanelView.GameObject);
         }
 
         public T ShowPanel<T>() where T : Object, IUIPanelView

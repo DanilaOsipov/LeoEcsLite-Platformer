@@ -9,6 +9,8 @@ namespace Contexts.Level.ECS.View
 
         public bool IsInitialized { get; private set; }
 
+        public GameObject GameObject => gameObject;
+
         public void Initialize(EcsPackedEntityWithWorld entityWithWorld)
         {
             if (IsInitialized) return;
