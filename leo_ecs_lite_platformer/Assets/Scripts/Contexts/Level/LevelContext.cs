@@ -10,6 +10,7 @@ using Contexts.Level.ECS.System;
 using Services;
 using Contexts.Level.ECS.Event;
 using Contexts.Level.ECS.Component;
+using Contexts.UI.View.Implemented;
 
 namespace Contexts.Level
 {
@@ -27,6 +28,7 @@ namespace Contexts.Level
 
             var inputService = GetService<IInputService>();
             var timeService = GetService<ITimeService>();
+            var uiService = GetService<IUIService>();
 
             var initSystems = new EcsSystems(defaultWorld);
             initSystems
@@ -63,11 +65,13 @@ namespace Contexts.Level
                 .Add(new InputMovementSystem())
                 .Add(new InputJumpSystem())
                 .Add(new ViewPositionSetSystem())
+                .Add(new ShowUIPanelSystem<UILevelCompletedPanelView, PlayerExitLevelEvent>())
                 .DelHerePhysics(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<JumpInputEvent>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
+                .DelHere<PlayerExitLevelEvent>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<Owner>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<PositionChangedMarker>()
-                .Inject(timeService)
+                .Inject(timeService, uiService)
                 .Init();
         }
 

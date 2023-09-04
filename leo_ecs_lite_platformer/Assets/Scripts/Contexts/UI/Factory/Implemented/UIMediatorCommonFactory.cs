@@ -15,6 +15,7 @@ namespace Contexts.UI.Factory.Implemented
         public UIMediatorCommonFactory(IServiceLocator serviceLocator)
         {
             _factories.Add(new UIMainPanelMediatorFactory(serviceLocator));
+            _factories.Add(new UILevelCompletedPanelMediatorFactory(serviceLocator));
         }
 
         public IUIPanelMediator CreateMediator(IUIPanelView panelView)
