@@ -16,30 +16,34 @@ namespace Contexts.Level
 {
     public class LevelContext : AplicationContext
     {
+        private EcsSystems _initSystems;
         private EcsSystems _updateSystems;
         private EcsSystems _fixedUpdateSystems;
 
+        private EcsWorld _defaultWorld;
+        private EcsWorld _eventsWorld;
+
         private void Awake()
         {
-            var defaultWorld = new EcsWorld();
-            var eventsWorld = new EcsWorld();
+            _defaultWorld = new EcsWorld();
+            _eventsWorld = new EcsWorld();
 
-            EcsPhysicsEvents.ecsWorld = eventsWorld;
+            EcsPhysicsEvents.ecsWorld = _eventsWorld;
 
             var inputService = GetService<IInputService>();
             var timeService = GetService<ITimeService>();
             var uiService = GetService<IUIService>();
 
-            var initSystems = new EcsSystems(defaultWorld);
-            initSystems
-                .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
+            _initSystems = new EcsSystems(_defaultWorld);
+            _initSystems
+                .AddWorld(_eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .Inject()
                 .ConvertScene()
                 .Init();
 
-            _updateSystems = new EcsSystems(defaultWorld);
+            _updateSystems = new EcsSystems(_defaultWorld);
             _updateSystems
-                .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
+                .AddWorld(_eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .DelHere<AxisInputEvent>(ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .Add(new AxisInputCheckSystem())
                 .Add(new JumpInputCheckSystem())
@@ -50,9 +54,9 @@ namespace Contexts.Level
                 .Inject(inputService)
                 .Init();
 
-            _fixedUpdateSystems = new EcsSystems(defaultWorld);
+            _fixedUpdateSystems = new EcsSystems(_defaultWorld);
             _fixedUpdateSystems
-                .AddWorld(eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
+                .AddWorld(_eventsWorld, ApplicationConstants.ECS_EVENTS_WORLD_NAME)
                 .Add(new CollisionEnterCheckSystem())
                 .Add(new GroundEnterCheckSystem())
                 .Add(new CollisionStayCheckSystem())
@@ -79,5 +83,35 @@ namespace Contexts.Level
         private void Update() => _updateSystems.Run();
 
         private void FixedUpdate() => _fixedUpdateSystems.Run();
+
+        private void OnDestroy()
+        {
+            EcsPhysicsEvents.ecsWorld = null;
+
+            DestroySystems(_initSystems);
+            DestroySystems(_updateSystems);
+            DestroySystems(_fixedUpdateSystems);
+
+            DestroyWorld(_defaultWorld);
+            DestroyWorld(_eventsWorld);
+        }
+
+        private void DestroyWorld(EcsWorld world)
+        {
+            if (world != null)
+            {
+                world.Destroy();
+                world = null;
+            }
+        }
+
+        private void DestroySystems(EcsSystems systems)
+        {
+            if (systems != null)
+            {
+                systems.Destroy();
+                systems = null;
+            }
+        }
     }
 }
