@@ -7,5 +7,7 @@ namespace Services.Implemented
         public float DeltaTime => Time.deltaTime;
 
         public float FixedDeltaTime => Time.fixedDeltaTime;
+
+        public void SetTimeScale(float value) => Time.timeScale = value;
     }
 }

@@ -1,17 +1,13 @@
 ﻿using Common;
-using Contexts.UI.View;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Services;
-using UnityEngine;
 
 namespace Contexts.Level.ECS.System
 {
-    public class ShowUIPanelSystem<TPanel, TEvent> : IEcsInitSystem, IEcsRunSystem
-        where TPanel : Object, IUIPanelView
-        where TEvent : struct
+    public class TimePauseSystem<TEvent> : IEcsInitSystem, IEcsRunSystem where TEvent : struct
     {
-        private readonly EcsCustomInject<IUIService> _uiService;
+        private readonly EcsCustomInject<ITimeService> _timeService;
 
         private EcsFilter _filter;
 
@@ -25,7 +21,7 @@ namespace Contexts.Level.ECS.System
         {
             if (_filter.GetEntitiesCount() > 0)
             {
-                _uiService.Value.ShowPanel<TPanel>();
+                _timeService.Value.SetTimeScale(0.0f);
             }
         }
     }
