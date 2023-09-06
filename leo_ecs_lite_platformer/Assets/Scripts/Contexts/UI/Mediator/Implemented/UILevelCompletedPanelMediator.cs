@@ -1,7 +1,7 @@
 ﻿using Common;
 using Contexts.Main.Command;
+using Contexts.UI.Command;
 using Contexts.UI.View.Implemented;
-using Services;
 
 namespace Contexts.UI.Mediator.Implemented
 {
@@ -15,10 +15,8 @@ namespace Contexts.UI.Mediator.Implemented
 
         private void OnRestartButtonClickHandler()
         {
-            var uiService = _serviceLocator.GetService<IUIService>();
-            uiService.HidePanel<UILevelCompletedPanelView>();
-
             var restartSequence = new CommandSequence()
+                .Add(new HideUIPanelCommand<UILevelCompletedPanelView>(_serviceLocator))
                 .Add(new UnloadLevelContextCommand(_serviceLocator))
                 .Add(new LoadLevelContextCommand(_serviceLocator));
             restartSequence.Execute();
@@ -26,18 +24,11 @@ namespace Contexts.UI.Mediator.Implemented
 
         private void OnExitButtonClickHandler()
         {
-            var uiService = _serviceLocator.GetService<IUIService>();
-            uiService.HidePanel<UILevelCompletedPanelView>();
-
-            var unloadLevelContextCommand = new UnloadLevelContextCommand(_serviceLocator);
-            unloadLevelContextCommand.OnSucceed += OnLevelContextUnloadedHandler;
-            unloadLevelContextCommand.Execute();
-        }
-
-        private void OnLevelContextUnloadedHandler()
-        {
-            var uiService = _serviceLocator.GetService<IUIService>();
-            uiService.ShowPanel<UIMainPanelView>();
+            var exitSequence = new CommandSequence()
+                .Add(new HideUIPanelCommand<UILevelCompletedPanelView>(_serviceLocator))
+                .Add(new UnloadLevelContextCommand(_serviceLocator))
+                .Add(new ShowUIPanelCommand<UIMainPanelView>(_serviceLocator));
+            exitSequence.Execute();
         }
     }
 }
