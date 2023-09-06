@@ -6,8 +6,6 @@ namespace Contexts.Main
 {
     public class MainContext : AplicationContext
     {
-        //[SerializeField] private ; TODO loadingPanelView
-
         private void Awake()
         {
             var startupSequence = new CommandSequence()

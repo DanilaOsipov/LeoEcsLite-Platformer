@@ -14,7 +14,8 @@ namespace Contexts.UI
         {
             var startupSequence = new CommandSequence()
                .Add(new UIRegisterServicesCommand(serviceLocator: this, _uiRoot))
-               .Add(new ShowUIPanelCommand<UIMainPanelView>(serviceLocator: this));
+               .Add(new ShowUIPanelCommand<UIMainPanelView>(serviceLocator: this))
+               .Add(new DestroyStartupLoadingPanelCommand(serviceLocator: this));
 
             startupSequence.Execute();
         }
