@@ -4,7 +4,9 @@ namespace Services
 {
     public interface ISceneService : IService
     {
-        public void LoadScene(string sceneName);
+        void LoadScene(string sceneName);
+        void UnloadScene(string sceneName);
         event Action<string> OnSceneLoaded;
+        event Action<string> OnSceneUnloaded;
     }
 }

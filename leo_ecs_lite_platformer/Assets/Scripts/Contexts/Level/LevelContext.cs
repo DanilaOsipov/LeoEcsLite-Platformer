@@ -86,6 +86,9 @@ namespace Contexts.Level
 
         private void OnDestroy()
         {
+            var timeService = GetService<ITimeService>();
+            timeService.SetTimeScale(1.0f);
+
             EcsPhysicsEvents.ecsWorld = null;
 
             DestroySystems(_initSystems);
