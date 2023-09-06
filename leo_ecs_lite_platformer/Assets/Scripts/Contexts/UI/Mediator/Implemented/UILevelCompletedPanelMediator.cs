@@ -17,8 +17,10 @@ namespace Contexts.UI.Mediator.Implemented
         {
             var restartSequence = new CommandSequence()
                 .Add(new HideUIPanelCommand<UILevelCompletedPanelView>(_serviceLocator))
+                .Add(new ShowUIPanelCommand<UILoadingPanelView>(_serviceLocator))
                 .Add(new UnloadLevelContextCommand(_serviceLocator))
-                .Add(new LoadLevelContextCommand(_serviceLocator));
+                .Add(new LoadLevelContextCommand(_serviceLocator))
+                .Add(new HideUIPanelCommand<UILoadingPanelView>(_serviceLocator));
             restartSequence.Execute();
         }
 
@@ -26,7 +28,9 @@ namespace Contexts.UI.Mediator.Implemented
         {
             var exitSequence = new CommandSequence()
                 .Add(new HideUIPanelCommand<UILevelCompletedPanelView>(_serviceLocator))
+                .Add(new ShowUIPanelCommand<UILoadingPanelView>(_serviceLocator))
                 .Add(new UnloadLevelContextCommand(_serviceLocator))
+                .Add(new HideUIPanelCommand<UILoadingPanelView>(_serviceLocator))
                 .Add(new ShowUIPanelCommand<UIMainPanelView>(_serviceLocator));
             exitSequence.Execute();
         }

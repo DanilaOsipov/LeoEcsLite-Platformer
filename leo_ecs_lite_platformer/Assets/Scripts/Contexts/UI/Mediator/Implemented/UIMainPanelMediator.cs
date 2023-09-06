@@ -15,8 +15,10 @@ namespace Contexts.UI.Mediator.Implemented
         private void OnStartButtonClickHandler()
         {
             var startSequence = new CommandSequence()
+                .Add(new HideUIPanelCommand<UIMainPanelView>(_serviceLocator))
+                .Add(new ShowUIPanelCommand<UILoadingPanelView>(_serviceLocator))
                 .Add(new LoadLevelContextCommand(_serviceLocator))
-                .Add(new HideUIPanelCommand<UIMainPanelView>(_serviceLocator));
+                .Add(new HideUIPanelCommand<UILoadingPanelView>(_serviceLocator));
             startSequence.Execute();
         }
     }
