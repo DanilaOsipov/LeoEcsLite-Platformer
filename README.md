@@ -2,6 +2,8 @@
 
 Platformer game prototype made with Unity using both ECS and OOP approaches
 
+<img src="./preview.png" width="950" height="500">
+
 ## Project features
 
 ### General
