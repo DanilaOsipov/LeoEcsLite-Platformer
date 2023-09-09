@@ -91,30 +91,19 @@ namespace Contexts.Level
 
             EcsPhysicsEvents.ecsWorld = null;
 
-            DestroySystems(_initSystems);
-            DestroySystems(_updateSystems);
-            DestroySystems(_fixedUpdateSystems);
+            _initSystems?.Destroy();
+            _updateSystems?.Destroy();
+            _fixedUpdateSystems?.Destroy();
 
-            DestroyWorld(_defaultWorld);
-            DestroyWorld(_eventsWorld);
-        }
+            _initSystems = null;
+            _updateSystems = null;
+            _fixedUpdateSystems = null;
 
-        private void DestroyWorld(EcsWorld world)
-        {
-            if (world != null)
-            {
-                world.Destroy();
-                world = null;
-            }
-        }
+            _defaultWorld?.Destroy();
+            _eventsWorld?.Destroy();
 
-        private void DestroySystems(EcsSystems systems)
-        {
-            if (systems != null)
-            {
-                systems.Destroy();
-                systems = null;
-            }
+            _defaultWorld = null;
+            _eventsWorld = null;
         }
     }
 }
