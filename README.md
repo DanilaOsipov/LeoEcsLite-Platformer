@@ -27,10 +27,14 @@ Platformer game prototype made with Unity using both ECS and OOP approaches
 
 - Using DI to provide Services not only to ECS Systems, but also to Commands and etc.
 - New gameplay mechanics (such as health system and enemies)
+- Multiplayer
+- Assembly definitions
+- Unit Testing
+- UI Mediators rework to reduce boilerplate
 
 ## Credits
 
-Project made with Unity 2021.3.3f1. Packages used: 
+Project made with Unity 2021.3.3f1. Packages used:
 
 - LeoEcsLite (https://github.com/Leopotam/ecslite)
 - LeoECS Lite DI (https://github.com/Leopotam/ecslite-di)
